@@ -2,16 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement : MonoBehaviour
+public class MoverPersonaje : MonoBehaviour
 {
-    public Camarita rt;
-    public float speed =0.1f;
+    float eje_X;
+    public float speed = 0.1f;
     void Update()
-    {   
+    {
+        /* Aqui establesemos en el personaje rporacion en el eje x para que
+         * al momento de girar la camara tambien gira el personaje para 
+         siguir hacia la pocicion del maus en el mismo eje x*/
+        eje_X += Input.GetAxis("Mouse X");
+        transform.eulerAngles = new Vector3(0, eje_X, 0);
+
         //Aqui asignamos el movimiento del personaje a las teclas WASD 
         if (Input.GetKey(KeyCode.W))
         {
-            transform.position += transform.forward*speed;
+            transform.position += transform.forward * speed;
         }
         if (Input.GetKey(KeyCode.S))
         {
@@ -25,8 +31,5 @@ public class Movement : MonoBehaviour
         {
             transform.position += transform.right * speed;
         }
-        //Aqui se asigna la rotacion del eje Y del personaje segun el eje X de la camara  
-        transform.eulerAngles = new Vector3(0, rt.mouseX * rt.speed, 0);
-
     }
 }
